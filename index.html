@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cricket Scores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #DAA520;
+            color: #000;
+        }
+        .navbar {
+            background-color: #BF9B30;
+            overflow: hidden;
+            border-bottom: 2px solid #A68A2A;
+        }
+        .navbar a {
+            float: left;
+            color: #000;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            background-color: #A68A2A;
+            color: #fff;
+        }
+        .content {
+            padding: 30px;
+        }
+        .score-block {
+            border: 1px solid #ddd;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            background-color: #f5f5dc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .match-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .team {
+            display: flex;
+            align-items: center;
+        }
+        .team img {
+            width: 60px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .vs {
+            margin: 0 25px;
+            font-weight: bold;
+            color: #8B0000;
+        }
+        .score-details {
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #333;
+            text-align: center;
+        }
+        .prediction-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+        .prediction-section h3 {
+            margin-bottom: 15px;
+            color: #8B0000;
+            font-size: 1.4em;
+        }
+        .user-prediction-form {
+            margin-top: 20px;
+        }
+        .user-prediction-form label {
+            font-weight: bold;
+        }
+        .user-prediction-form select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #000;
+            margin-left: 10px;
+        }
+        .user-prediction-form button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #8B0000;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+</div>
+
+<div class="content">
+    <h1 style="text-align: center;">Live Cricket Scores</h1>
+    {% for score in scores %}
+        <div class="score-block">
+            <div class="match-title">
+                {% if score.teams|length >= 2 %}
+                    <div class="team">
+                        <img src="https://flagcdn.com/{{ score.teams[0].flag }}.svg" alt="{{ score.teams[0].name }} Flag">
+                        <span>{{ score.teams[0].name }}</span>
+                    </div>
+                    <span class="vs">vs</span>
+                    <div class="team">
+                        <img src="https://flagcdn.com/{{ score.teams[1].flag }}.svg" alt="{{ score.teams[1].name }} Flag">
+                        <span>{{ score.teams[1].name }}</span>
+                    </div>
+                {% else %}
+                    {{ score.title }}
+                {% endif %}
+            </div>
+            <div class="score-details">
+                {{ score.title }}
+            </div>
+            <div class="prediction-section">
+                <h3>Score Prediction</h3>
+                <p>{{ score.prediction }}</p>
+                <div class="user-prediction-form">
+                    <label for="prediction-{{ loop.index }}">Your Prediction:</label>
+                    <select id="prediction-{{ loop.index }}">
+                        {% if score.teams|length >= 2 %}
+                            <option value="{{ score.teams[0].name }}">{{ score.teams[0].name }}</option>
+                            <option value="{{ score.teams[1].name }}">{{ score.teams[1].name }}</option>
+                        {% endif %}
+                    </select>
+                    <button onclick="alert('Your prediction has been submitted!')">Submit</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
