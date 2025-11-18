@@ -1,10 +1,10 @@
 # Cricket Scores App        
-│
-│                                                                                                                     │
-│      A simple Flask web application that displays live cricket scores, provides score predictions, and allows users │
-│       to submit their own predictions.         
-│
-│                                                                                                                     │
+
+                                                                                                                     │
+      A simple Flask web application that displays live cricket scores, provides score predictions, and allows users │
+       to submit their own predictions.         
+
+                                                                                                                     │
 │      ## Features                              
 │
 │                                                                                                                     │
